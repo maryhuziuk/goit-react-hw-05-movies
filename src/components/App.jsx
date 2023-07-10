@@ -1,16 +1,27 @@
+import { lazy, Suspense } from 'react';
+import {Route, Routes } from 'react-router-dom';
+import SharedLayout from '../components/SharedLayout/SharedLayout';
+
+const Home = lazy(() => import('../pages/Home/Home.jsx'));
+const MovieDetails = lazy(() =>
+  import('../pages/MoviesDetails/MoviesDetails.jsx'));
+const Movies = lazy(() => import('../pages/Movies/Movies.jsx'));
+const Cast = lazy(() => import('../components/Cast/Cast.jsx'));
+const Reviews = lazy(() => import('../components/Reviews/Reviews.jsx'));
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path="movies" element={<Movies />} />
+          <Route path="movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
