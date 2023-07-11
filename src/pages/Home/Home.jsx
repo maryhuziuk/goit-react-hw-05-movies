@@ -8,7 +8,7 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    getTrendingMovies('').then(setMovies);
+    getTrendingMovies().then(setMovies);
   }, []);
 
   return (

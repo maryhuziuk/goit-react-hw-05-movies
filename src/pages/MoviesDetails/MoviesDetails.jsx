@@ -5,7 +5,6 @@ import {
   useParams,
 } from 'react-router-dom';
 import { getMovieById } from '../../servises/api.js';
-import { BASE_POSTER_URL, PLACEHOLDER } from '../../utils/constant.js';
 import {
     NavItemLink,
   FilmWrapper,
@@ -20,7 +19,7 @@ import {
   NavLinkItem,
 } from './MoviesDetails.styled.js';
 
-
+const defaultImg = '<https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700>'
 
 const MoviesDetails = () => {
   const { movieId } = useParams();
@@ -48,13 +47,13 @@ const MoviesDetails = () => {
         </NavItemLink>
       </GoBackLink>
       <FilmWrapper>
-        <FilmImg
-          src={`${
-            movie.poster_path
-              ? BASE_POSTER_URL + movie.poster_path
-              : PLACEHOLDER + '?text=' + movie.original_title
-          }`}
-          alt="get"
+        <FilmImg src={  
+          movie.poster_path ?
+          `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+          : defaultImg
+        }
+        width={250}
+        alt="poster"
         />
         <div>
           <FilmTitle>{movie.original_title}</FilmTitle>
